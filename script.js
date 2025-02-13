@@ -1,3 +1,4 @@
+let messageIndex=0;
 const messages = [
     "😐Are you sure? Think once again",
     "You are such an ass😒",
@@ -12,13 +13,28 @@ const messages = [
     "Just kidding, say yes please! ❤️"
 ];
 
-let messageIndex = 0;
-
 function handleNoClick() {
     const noButton = document.querySelector('.no-button');
-    const yesButton = document.querySelector('.yes-button');
-    noButton.textContent = messages[messageIndex];
+    const messagesContainer = document.querySelector('.messages-container');
+    
+    // Create a new message element
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.textContent = messages[messageIndex];
+    
+    // Append the new message to the container
+    messagesContainer.appendChild(messageElement);
+    
+    // Start the fade-out effect after a short delay
+    setTimeout(() => {
+        messageElement.classList.add('fade-out'); // Trigger fade-out animation
+    }, 2500); // Keep the message for 2.5 seconds before fading it out
+
+    // Update the message index
     messageIndex = (messageIndex + 1) % messages.length;
+    
+    // font size animation for the Yes button
+    const yesButton = document.querySelector('.yes-button');
     const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
     yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }

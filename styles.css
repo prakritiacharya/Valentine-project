@@ -59,7 +59,9 @@ body {
   transform: translateY(-5px);
   animation: fadeIn 0.5s ease-in-out forwards;
 }
-
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -70,8 +72,6 @@ body {
       transform: translateY(0);
   }
 }
-
-/* GIF container */
 .gif_container img {
   max-width: 100%;
   height: auto;
