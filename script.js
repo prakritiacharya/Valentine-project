@@ -1,4 +1,3 @@
-let messageIndex=0;
 const messages = [
     "😐Are you sure? Think once again",
     "You are such an ass😒",
@@ -13,30 +12,33 @@ const messages = [
     "Just kidding, say yes please! ❤️"
 ];
 
+let messageIndex = 0;
+
 function handleNoClick() {
     const noButton = document.querySelector('.no-button');
-    const messagesContainer = document.querySelector('.messages-container');
-    
-    // Create a new message element
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-    messageElement.textContent = messages[messageIndex];
-    
-    // Append the new message to the container
-    messagesContainer.appendChild(messageElement);
-    
-    // Start the fade-out effect after a short delay
-    setTimeout(() => {
-        messageElement.classList.add('fade-out'); // Trigger fade-out animation
-    }, 2500); // Keep the message for 2.5 seconds before fading it out
-
-    // Update the message index
-    messageIndex = (messageIndex + 1) % messages.length;
-    
-    // font size animation for the Yes button
     const yesButton = document.querySelector('.yes-button');
+    const messageContainer = document.querySelector('.message-container'); // Added message container
+    
+    if (!messageContainer) {
+        const newMessageContainer = document.createElement('div');
+        newMessageContainer.classList.add('message-container');
+        newMessageContainer.style.position = 'absolute';
+        newMessageContainer.style.top = '50px';
+        newMessageContainer.style.fontSize = '1.2em';
+        newMessageContainer.style.transition = 'opacity 0.2s ease-out'; // Added fade effect
+        document.body.appendChild(newMessageContainer);
+    }
+
+    const messageElement = document.querySelector('.message-container');
+    messageElement.style.opacity = '0'; // Fade out old message
+    setTimeout(() => {
+        messageElement.textContent = messages[messageIndex]; // Show new message
+        messageElement.style.opacity = '1'; // Fade in new message
+    }, 200); // Reduced delay for faster message switch
+
+    messageIndex = (messageIndex + 1) % messages.length;
     const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+    yesButton.style.fontSize = `${currentSize * 1.5}px`; // Yes button growth remains
 }
 
 function handleYesClick() {
